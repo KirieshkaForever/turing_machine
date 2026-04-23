@@ -1,0 +1,25 @@
+{
+  "name": "Простой удвоитель единиц",
+  "description": "Заменяет 1 на 0 и бежит вправо, чтобы написать еще одну 1",
+  "blank": "_",
+  "initialState": "scan",
+  "finalStates": ["halt"],
+  "tape": "111",
+  "rules": [
+    { "state": "scan", "read": "1", "write": "0", "move": "R", "nextState": "go_write" },
+    { "state": "scan", "read": "_", "write": "_", "move": "N", "nextState": "halt" },
+
+    { "state": "go_write", "read": "0", "write": "0", "move": "R", "nextState": "go_write" },
+    { "state": "go_write", "read": "1", "write": "1", "move": "R", "nextState": "go_write" },
+    { "state": "go_write", "read": "_", "write": "1", "move": "L", "nextState": "back" },
+
+    { "state": "back", "read": "1", "write": "1", "move": "L", "nextState": "back" },
+    { "state": "back", "read": "0", "write": "0", "move": "L", "nextState": "back" },
+
+    { "state": "back", "read": "_", "write": "_", "move": "R", "nextState": "restore" } ,
+
+    { "state": "restore", "read": "0", "write": "1", "move": "R", "nextState": "restore" },
+    { "state": "restore", "read": "1", "write": "1", "move": "R", "nextState": "restore" },
+    { "state": "restore", "read": "_", "write": "_", "move": "N", "nextState": "halt" }
+  ]
+}
