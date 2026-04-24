@@ -1,15 +1,25 @@
+import type { Direction } from "./types/Rule.ts";
+
+type TapeMap = Map<number, string>;
+
 export default class Tape {
-  constructor(inputString, blankSymbol) {
-    this.tape = new Map(Array.from(inputString).map((ch, i) => [i, ch]));
+  public tape: TapeMap;
+  public blankSymbol: string;
+  public headPosition = 0;
+
+  constructor(inputString: string, blankSymbol: string) {
+    this.tape = new Map<number, string>(
+      Array.from(inputString).map((ch, i) => [i, ch]),
+    );
     this.blankSymbol = blankSymbol;
     this.headPosition = 0;
   }
 
-  read() {
+  read(): string {
     return this.tape.get(this.headPosition) ?? this.blankSymbol;
   }
 
-  write(symbol) {
+  write(symbol: string): void {
     if (symbol === this.blankSymbol) {
       this.tape.delete(this.headPosition);
     } else {
@@ -17,7 +27,7 @@ export default class Tape {
     }
   }
 
-  move(direction) {
+  move(direction: Direction): void {
     if (direction === "R") {
       this.headPosition++;
     } else if (direction === "L") {
@@ -25,8 +35,8 @@ export default class Tape {
     }
   }
 
-  getTapeRepresentation() {
-    const keys = [...this.tape.keys()];
+  getTapeRepresentation(): string {
+    const keys: number[] = [...this.tape.keys()];
     if (keys.length === 0) return "";
 
     const minIndex = Math.min(...keys);

@@ -1,10 +1,22 @@
 import chalk from "chalk";
-import RuleBook from "./RuleBook.js";
-import Tape from "./Tape.js";
-import { delay } from "./utils.js";
+import type IConfig from "./types/Config.ts";
+import type { RuleObject } from "./types/Rule.ts";
+import Tape from "./Tape.ts";
+import RuleBook from "./RuleBook.ts";
+import { delay } from "./Utils.ts";
+
+type LastRule = { from: { state: string; read: string }; to: RuleObject };
 
 export default class TuringMachine {
-  constructor(config) {
+  private tape: Tape;
+  private rules: RuleBook;
+  private currentState: string;
+  private finalStates: string[];
+  private stepsCount: number;
+  private lastRule: LastRule | null;
+  private haltedWithError: boolean;
+
+  constructor(config: IConfig) {
     this.tape = new Tape(config.tape, config.blank);
     this.rules = new RuleBook(config.rules, config.blank);
     this.currentState = config.initialState;
@@ -14,7 +26,7 @@ export default class TuringMachine {
     this.haltedWithError = false;
   }
 
-  step() {
+  step(): boolean {
     if (this.finalStates.includes(this.currentState)) {
       return false;
     }
@@ -27,11 +39,6 @@ export default class TuringMachine {
       return false;
     }
 
-    this.lastRule = {
-      from: { state: this.currentState, read: symbol },
-      to: rule,
-    };
-
     this.tape.write(rule.write);
     this.tape.move(rule.move);
     this.currentState = rule.nextState;
@@ -40,7 +47,7 @@ export default class TuringMachine {
     return true;
   }
 
-  async run() {
+  async run(): Promise<void> {
     while (true) {
       this.display();
       await delay(500);
@@ -86,7 +93,9 @@ export default class TuringMachine {
     console.log(chalk.bold("\n=== ФИНАЛЬНЫЙ РЕЗУЛЬТАТ ==="));
 
     if (this.haltedWithError) {
-      console.log(chalk.red("Машина остановлена: не найдено подходящее правило."));
+      console.log(
+        chalk.red("Машина остановлена: не найдено подходящее правило."),
+      );
     } else {
       console.log(chalk.green("Машина успешно завершила работу."));
     }
