@@ -1,4 +1,4 @@
-import type { Direction } from "./types/Rule.ts";
+import type { Direction } from "./types/Rule.js";
 
 type TapeMap = Map<number, string>;
 

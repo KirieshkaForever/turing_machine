@@ -1,5 +1,5 @@
-import type IRule from "./types/Rule.ts";
-import type { RuleObject } from "./types/Rule.ts";
+import type IRule from "./types/Rule.js";
+import type { RuleObject } from "./types/Rule.js";
 
 type RulesMap = Map<string, RuleObject>;
 

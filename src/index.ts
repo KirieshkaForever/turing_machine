@@ -1,6 +1,6 @@
 import fs from "fs";
-import type IConfig from "./types/Config.ts";
-import TuringMachine from "./TuringMachine.ts";
+import type IConfig from "./types/Config.js";
+import TuringMachine from "./TuringMachine.js";
 
 const fileName: string | undefined = process.argv[2];
 if (!fileName) {

@@ -1,4 +1,4 @@
-import IRule from "./Rule.ts";
+import type IRule from "./Rule.js";
 
 export default interface IConfig {
   name: string;

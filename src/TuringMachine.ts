@@ -1,9 +1,9 @@
 import chalk from "chalk";
-import type IConfig from "./types/Config.ts";
-import type { RuleObject } from "./types/Rule.ts";
-import Tape from "./Tape.ts";
-import RuleBook from "./RuleBook.ts";
-import { delay } from "./Utils.ts";
+import type IConfig from "./types/Config.js";
+import type { RuleObject } from "./types/Rule.js";
+import Tape from "./Tape.js";
+import RuleBook from "./RuleBook.js";
+import { delay } from "./Utils.js";
 
 type LastRule = { from: { state: string; read: string }; to: RuleObject };
 
