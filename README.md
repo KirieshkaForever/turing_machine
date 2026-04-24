@@ -32,13 +32,13 @@
 Запускается из командной строки. В качестве аргумента нужно передать название JSON-файла.
 
 ```npm
-node index.js <машина.json>
+npm start <машина.json>
 ```
 
 В комплекте идет пример doubler.json, который удваивает количество единиц на ленте.
 
 ```npm
-node index.js doubler.json
+npm start doubler.json
 ```
 
 ---
